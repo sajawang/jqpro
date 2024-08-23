@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="http://localhost/webpro/css/public.css">
+<script src="../js/jquery-3.7.1.js"></script>
+<script type="text/javascript">
+const getData = function(url,ph, pb){
+	fetch(url,{
+		method : 'post',
+		headers : ph,
+		body : pb
+	})
+	.then(res=>{
+		
+	}).then( data=>{
+		
+	})
+}
+</script>
+</head>
+<body>
+
+<div class="box">
+  <h3></h3>
+  <form name="ff">
+       이름<input type="text" placeholder="name" name="name" id="name"><br>
+       아이디<input type="text" placeholder="id" name="id" id="id"><br>
+       이메일<input type="text" placeholder="email" name="email" id="email"><br>
+   <input type="button" value="params전송" id="btn1">
+   <input type="button" value="직렬화전송" id="btn2">
+  </form>
+  <br>
+   <div id="result1"></div>
+</div>
+</body>
+</html>
