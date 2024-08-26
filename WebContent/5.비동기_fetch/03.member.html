@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="http://localhost/webpro/css/public.css">
+<script src="../js/jquery-3.7.1.js"></script>
+<script type="text/javascript">
+$( ()=>{
+	$('#btn1').on('click', fuction(){
+		fetch('member.jsp')
+		.then( function(res){
+			console.log(res);
+			//json으로 역직렬화해서 출력                      
+		})
+	})
+	
+})
+
+</script>
+</head>
+<body>
+
+<div class="box">
+  <h3></h3>
+   <input type="button" value="memberList" id="btn1">
+  <br>
+   <div id="result1"></div>
+</div>
+</body>
+</html>
