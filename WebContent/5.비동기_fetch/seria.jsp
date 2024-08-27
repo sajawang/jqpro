@@ -41,6 +41,8 @@ SeriaVO svo = gson.fromJson(reqData, SeriaVO.class);
 
 //svo결과로 응답 데이터를 생성
 
+//gson을 이용할 수 있다. 간단간단밍하게 - 밑에 코딩안하고
+
 %>
 
 {

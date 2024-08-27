@@ -6,7 +6,7 @@
 	
 <mapper namespace="member">
 
-	<select id="selecAllMember" resultType="memberVo">
+	<select id="selectAllMember" resultType="memberVo">
 		select * from member
 	</select>
 </mapper>
