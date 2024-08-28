@@ -49,7 +49,7 @@ request.setAttribute("set",list);//?????????????????????????????????setAttribute
 
 
 //결과값을 가지고 view페이지로 이동
-RequestDispatcher disp = request.getRequestDispatcher("/5-1.비동기_fetch_제품리스트/prodListView.jsp");
+RequestDispatcher disp = request.getRequestDispatcher("5-2.제품리스트/prodListView.jsp");
 disp.forward(request,response);
 %>
 

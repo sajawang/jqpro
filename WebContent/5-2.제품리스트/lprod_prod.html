@@ -14,14 +14,11 @@
   $( () =>{
 	  
 	  //lprod의 제품을 선택하면 change이벤트를 준것.
-	  //lpeos의 제품을 선택하면 - 두번째 select에 prod 제품을 option으로 출력
-	  //?????????????????????????????????????????????????????????????????????????
 	  $('#lprod').on('change',function(){
 		  
 		//선택한 옵션의 lprod_gu값을 얻는다.
-		//??????????????????????????????????????????????????????????????????????
 		lgu=$("option:selected",this).val();
-		alert(lgu);
+		alert(lgu); //P401이런건 엉ㅄ다.	
 		
 		//자바 스크립트 객체
 		lguvalue = {lprod_gu:lgu}; //reader를 이용
@@ -47,13 +44,19 @@
 		})
 		.then( data =>{
 			console.log(data);
-			
-		 	code="";
-			for(item of data){
-				code += `<option value="${item.prod_id}">${item.prod_name}</option>`
+			if(data.flag == "ok"){
+				
+				code="";
+				  for(item of data.datas){
+					  code += `<option value="${item.lprod_gu}"> ${item.lprod_nm}</option>`
+				  } 
+				$('#prod').html(code)
+			} else {
+				code="";
+				code += `<option value="0"> 데이터 없음 </option>`
+				$('#prod').html(code);
+				$('#result1').empty();
 			}
-			$('#prod').html(code);
-			$('#prod').trigger('change');
 		})
 		.catch( err =>{
 			alert("오류"+err.statusText)
@@ -61,12 +64,15 @@
 		
 	  })//lprod change
 	  
-	  //prod제품을 선택하면 - 해당 제품의 상세보기를 result1에 출력
+	  //prod제품을 선택하면 - 해당 제품의 상세보기를 result1에 출력 - 데이터 없음일 경우 이벤트 실행되지 않는다.
 	  $('#prod').on('change', function(){
 		
 		  //선택한 옵션의 value값 가져오기
 		  //$('#prod option:selected')
 		  idvalue = $('option:selected', this).val().trim();
+		  
+		  //데이터 없을일 경우 그냥 종료
+		  if(idvlaue == 0) return;
 		  
 		  pid = {prod_id : idvalue};
 		  
@@ -127,10 +133,9 @@
 			  code += `<option value="${item.lprod_gu}"> ${item.lprod_nm}</option>`
 		  }
 		  $('#lprod').html(code);
-		  $('#lprod').trigger('change')//위쪽의 change있음
 	  })
 	  .catch( err=>{
-		  alert(err)
+		  alert(err);
 	  })
   }
   

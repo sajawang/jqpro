@@ -19,11 +19,7 @@
 	//결과를 저장하고 view페이지로 forward시킨다
 	 
 	request.setAttribute("set", list);
-	RequestDispatcher disp = request.getRequestDispatcher("/5-1.비동기_fetch_제품리스트/lprodView.jsp");
+	RequestDispatcher disp = request.getRequestDispatcher("/5-2.제품리스트/lprodView.jsp");
 	disp.forward(request, response);
-	
-	
-
-	
 
 %>
