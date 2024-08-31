@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.member.vo.ZipVO;
 import kr.or.ddit.mybatis.config.MybatisUtil;
 
 public class MemberDaoImpl implements IMemberDao {
@@ -46,6 +47,69 @@ public class MemberDaoImpl implements IMemberDao {
 		
 		//결과값 service로 리턴
 		return list;
+	}
+
+
+	@Override
+	public String idCheck(String id) {
+		//1.리턴할 변수 선언
+		String userId = null;
+		
+		//2.try-catch-finally
+		try {
+			//3.실행
+			sql = MybatisUtil.getSqlSession();
+			userId = sql.selectOne("member.idCheck",id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sql.commit();
+			sql.close();
+		}
+		//3.리턴
+		return userId;
+	}
+
+
+	@Override
+	public List<ZipVO> selectByDong(String dong) {
+		//1.리턴할 변수 선언
+		List<ZipVO> list = null;
+				
+		//2.try-catch-finally
+		try {
+			//3.실행
+			sql = MybatisUtil.getSqlSession();
+			list = sql.selectList("member.selectByDong", dong);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sql.commit();
+			sql.close();
+		}
+		//3.리턴
+		return list;
+	}
+
+
+	@Override
+	public int insertMember(MemberVO vo) {
+		//1.리턴힐값
+		int cnt=0;
+		
+		//2.try-catch-finally
+		try {
+			//3.실행
+			sql = MybatisUtil.getSqlSession();
+			sql.insert("member.insertMember");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sql.commit();
+			sql.close();
+		}
+		//3.리턴
+		return cnt;
 	}
 
 }

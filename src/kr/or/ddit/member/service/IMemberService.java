@@ -3,7 +3,7 @@ package kr.or.ddit.member.service;
 import java.util.List;
 
 import kr.or.ddit.member.vo.MemberVO;
-import kr.or.ddit.member.vo.ZipVo;
+import kr.or.ddit.member.vo.ZipVO;
 
 public interface IMemberService {
 
@@ -35,7 +35,7 @@ public interface IMemberService {
 	
 	
 	//우편번호 찾기(join.html만들다가 옴)
-	public List<ZipVo> selectByDong(String dong); 
+	public List<ZipVO> selectByDong(String dong); 
 	
 	
 	//저장가입하기(join.html만들다가 옴)
