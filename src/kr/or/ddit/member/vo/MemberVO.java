@@ -12,6 +12,7 @@ public class MemberVO {
 	private String mem_hp   ;
 	private String mem_mail ;
 	
+	
 	public String getMem_id() {
 		return mem_id;
 	}
@@ -66,6 +67,10 @@ public class MemberVO {
 	public void setMem_mail(String mem_mail) {
 		this.mem_mail = mem_mail;
 	}
+	
+	
+	
+	
 	
 	
 }

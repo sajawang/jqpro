@@ -101,7 +101,7 @@ public class MemberDaoImpl implements IMemberDao {
 		try {
 			//3.실행
 			sql = MybatisUtil.getSqlSession();
-			sql.insert("member.insertMember");
+			cnt=sql.insert("member.insertMember", vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 <!-- <link rel="stylesheet" href="http://localhost/webpro/css/public.css"> -->
 <script src="../js/jquery-3.7.1.js"></script>
-
+<script type="text/javascript" src="../js/jquery.serializejson.min.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,11 +19,6 @@
 
 <script type="text/javascript">
 $( ()=>{
-		
-	
-	
-	
-	
 	//id입력규칙
 	$('#id').on('keyup',function(){
 		userId = $('#id').val().trim();
@@ -77,8 +72,6 @@ $( ()=>{
 			
 	})
 	
-	
-	
 	//우편번호 찾기
 	$('#zipbtn').on('click',()=>{
 		//입력한 동이름 가져오기
@@ -90,7 +83,6 @@ $( ()=>{
 			alert("동이름 입력하세요");
 			return;
 		}
-		
 			$.ajax({
 				url : '/jqpro/zipSearch.do',
 				type : 'post',
@@ -110,7 +102,8 @@ $( ()=>{
 							bunji = v.bunji;
 							if(bunji==null) bunji="";
 							
-							code+=`<tr><td>${v.zipcode}</td>
+							
+							code+=`<tr class="ziptr"><td>${v.zipcode}</td>
 									<td>${addr}</td>
 									<td>${bunji}</td></tr>`;
 						})
@@ -123,19 +116,62 @@ $( ()=>{
 				},
 				dataType : 'json'
 			})
-		
+	})
 			
 			
 		//우편번호 찾기 결과에서 하나를 클릭하면
 		$(document).on('click','.ziptr',function(){
-			$('this td:eq(0)')
+			//$('this td:eq(0)')
+			//선택한 행에서 우편번호와 주소를 가져오기
+			zcode=$('td:eq(0)',this).text().trim();
+			addr=$('td:eq(1)',this).text().trim();
+			
+			//본문에 출력하기
+			$('#zip').val(zcode);
+			$('#add1').val(addr);
+			
+			//모달창의 출력데이터 지우고
+			$('#dong').val("");
+			$('#result').empty();
+			
+			//모달창닫기
+			$('#myModal').modal('hide');
+		})//우편번호 클릭
+
+		//가입 전송버튼 클릭
+		$('#send').on('click',function(){
+			//입력한 모든 값을 가져온다 - val()
+			//$('#id').val()
+			//$('#name').val()m이렇게 하나하나 안쓴다.
+			
+			fdata1=$('#ff').serialize();
+			fdata2=$('#ff').serializeArray();
+			
+			console.log(fdata1);
+			console.log(fdata2);
+			
+			fdata3=$('#ff').serializeJSON();
+			console.log(fdata3);
+			
+			 $.ajax({
+				url : '/jqpro/insertMember.do',
+				data : JSON.stringify(fdata3), //script객체를 json형식의 문자열로 직렬화
+				contentType : 'application/json',
+				type : 'post',
+				success : (res) =>{
+					alert(res.flag);
+					$('#joinspan').html(res.flag).css('color','red');
+				},
+				error : (xhr) => {
+					alert("오류 :"+xhr.status);
+				},
+				dataType : 'json'	//res 는 json형식의 문자열 - script객체로 바꾸는것(역직렬화)
+			}) 
 		})
 		
-		
-		
-		
-		
-})
+})//$function
+
+
 </script>
 </head>
 <body>
@@ -147,7 +183,7 @@ $( ()=>{
   
 <div class="container mt-3">
   <h2> 회원가입</h2>
-  <form>
+  <form id="ff">
   
     <div class="mb-3 mt-3">
       <label for="id">아이디:</label> <input class="btn btn-outline-info btn-lg" type="button" value="중복검사" id="idcheck">
@@ -164,7 +200,7 @@ $( ()=>{
       
     <div class="mb-3 mt-3">
       <label for="hp">전화번호:</label>
-      <input type="text" class="form-control" id="hp"  placeholder="전화번호"  name="mem_tel">
+      <input type="text" class="form-control" id="hp"  placeholder="전화번호"  name="mem_hp">
     </div>
       
     <div class="mb-3 mt-3">
@@ -199,7 +235,7 @@ $( ()=>{
       <input type="text" class="form-control" id="add2"  placeholder="상세주소"  name="mem_add2">
     </div>
     
-    <button class="btn btn-outline-success  btn-lg" type="button"> Submit </button>
+    <button class="btn btn-primary" type="button" id="send"> Submit </button>
     <span id="joinspan"></span>
   </form>
 </div>
